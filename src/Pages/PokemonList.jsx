@@ -8,23 +8,20 @@ import Card from "Components/Card";
 
 function PokemonList(props) {
   const [datas, setDatas] = useState([]);
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(0);
   const [loading, setLoading] = useState(true);
+  const limit = 9;
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [page]);
 
   function fetchData() {
     axios
-      .get(`https://pokeapi.co/api/v2/pokemon?offset=${page}&limit=${20}`)
+      .get(`https://pokeapi.co/api/v2/pokemon?offset=${page}&limit=${limit}`)
       .then((res) => {
         const { results } = res.data;
-        const newPage = page + 20;
-        const temp = [...datas];
-        temp.push(...results);
-        setDatas(temp);
-        setPage(newPage);
+        setDatas(results);
       })
       .catch((err) => {
         alert.apply(err.toString());
@@ -37,21 +34,45 @@ function PokemonList(props) {
   return (
     <Layout>
       <div className="grid grid-cols-3 gap-3 px-3 py-2">
-        {datas.map((data) => (
-          <Card
-            key={data.name}
-            name={data.name}
-            url={data.url}
-            onNavigate={() => props.navigate(`/pokemon/${data.name}`)}
-          />
-        ))}
+        {loading ? (
+          <p>Loading...</p>
+        ) : (
+          datas.map((data) => (
+            <Card
+              key={data.name}
+              name={data.name}
+              url={data.url}
+              onNavigate={() => props.navigate(`/pokemon/${data.name}`)}
+            />
+          ))
+        )}
       </div>
-      <button
-        onClick={() => fetchData()}
-        className="w-1/4 m-3 p-2 border-black border"
+      <div
+        className={`flex px-3 py-1 ${
+          page === 0 ? "justify-end" : "justify-between"
+        } text-sm text-white`}
       >
-        Load More Pokemon
-      </button>
+        {page === 0 ? (
+          ""
+        ) : (
+          <button
+            className="bg-blue-600 px-2 rounded-lg"
+            onClick={() => setPage(page - limit)}
+          >
+            Prev
+          </button>
+        )}
+        {page === 1154 / limit ? (
+          ""
+        ) : (
+          <button
+            className="bg-blue-600 px-2 rounded-lg"
+            onClick={() => setPage(page + limit)}
+          >
+            Next
+          </button>
+        )}
+      </div>
     </Layout>
   );
 }
