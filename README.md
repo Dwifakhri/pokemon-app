@@ -38,6 +38,10 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
 
+## Deployment
+Go to the link to launch the app
+http://pokemon-app-mauve.vercel.app/
+
 ## Stacks and Tools
 <p>
   <img alt="React" src="https://img.shields.io/badge/-React-45b8d8?style=flat-square&logo=react&logoColor=white" />
