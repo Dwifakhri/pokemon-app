@@ -1,3 +1,5 @@
+![pokemon](https://i.paste.pics/af39979b9e081f7d12ee90787dc6c019.png)
+
 <a href="https://github.com/Dwifakhri/pokemon-app" style="color: black;">
     <h1 align="center">Pokemon - App</h1>
 </a>
